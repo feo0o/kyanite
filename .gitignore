@@ -1,0 +1,9 @@
+.idea/
+.vscode/
+
+/release/
+/logs/
+
+main
+*.exe
+*.log
