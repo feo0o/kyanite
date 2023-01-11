@@ -1,0 +1,130 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/healthz": {
+            "get": {
+                "description": "health check, no params needed",
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "healthz"
+                ],
+                "summary": "health check",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/random/decimal": {
+            "get": {
+                "description": "generate a random decimal with given number range and precision, default range is 0~10, and defualt precision is 6",
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "random"
+                ],
+                "summary": "generate random decimal",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "minmal number",
+                        "name": "min",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "maxmum number",
+                        "name": "max",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "decimal precision",
+                        "name": "precision",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "'random decimal'",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/random/int": {
+            "get": {
+                "description": "generate random int number with given range, default is 0~10",
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "random"
+                ],
+                "summary": "generate random int number",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "minmal number",
+                        "name": "min",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "maxmum number",
+                        "name": "max",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "'random number'",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/random/string": {
+            "get": {
+                "description": "generate random string with given length, default length is 8",
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "random"
+                ],
+                "summary": "generate random string",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "random string length",
+                        "name": "length",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

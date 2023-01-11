@@ -1,13 +1,13 @@
 APP_NAME		=	Kyanite
 MAJOR_VERSION	=	0
-MINOR_VERSION	=	1
+MINOR_VERSION	=	2
 BUILD_VERSION	=	0
 GIT_COMMIT		=	$(shell git rev-parse --short HEAD)
 
 RELEASE_DIR		=	release
 ARTIFACT_NAME	=	$(shell echo $(APP_NAME) | tr A-Z a-z)
 
-IMPORT_VARS		=	-X github.com/feo0o/kyanite/app.Name=$(NAME) \
+IMPORT_VARS		=	-X github.com/feo0o/kyanite/app.Name=$(APP_NAME) \
 					-X github.com/feo0o/kyanite/app.majorVer=$(MAJOR_VERSION) \
 					-X github.com/feo0o/kyanite/app.minorVer=$(MINOR_VERSION) \
 					-X github.com/feo0o/kyanite/app.patchVer=$(BUILD_VERSION) \
@@ -23,6 +23,7 @@ BUILD_RELEASE	=	go build -trimpath \
 					-ldflags '-extldflags "-static" $(IMPORT_VARS)'
 
 release:main.go
+	swag init
 	$(ENV_WINDOWS_X64) $(BUILD_RELEASE) -o $(RELEASE_DIR)/$(ARTIFACT_NAME)_windows_amd64.exe main.go
 	$(ENV_LINUX_X64) $(BUILD_RELEASE) -o $(RELEASE_DIR)/$(ARTIFACT_NAME)_linux_amd64 main.go
 	# $(ENV_DARWIN_X64) $(BUILD_RELEASE) -o $(RELEASE_DIR)/$(ARTIFACT_NAME)_darwin_amd64 main.go

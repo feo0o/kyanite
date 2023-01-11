@@ -1,0 +1,84 @@
+info:
+  contact: {}
+paths:
+  /healthz:
+    get:
+      description: health check, no params needed
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: health check
+      tags:
+      - healthz
+  /random/decimal:
+    get:
+      description: generate a random decimal with given number range and precision,
+        default range is 0~10, and defualt precision is 6
+      parameters:
+      - description: minmal number
+        in: query
+        name: min
+        type: integer
+      - description: maxmum number
+        in: query
+        name: max
+        type: integer
+      - description: decimal precision
+        in: query
+        name: precision
+        type: integer
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: '''random decimal'''
+          schema:
+            type: string
+      summary: generate random decimal
+      tags:
+      - random
+  /random/int:
+    get:
+      description: generate random int number with given range, default is 0~10
+      parameters:
+      - description: minmal number
+        in: query
+        name: min
+        type: integer
+      - description: maxmum number
+        in: query
+        name: max
+        type: integer
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: '''random number'''
+          schema:
+            type: string
+      summary: generate random int number
+      tags:
+      - random
+  /random/string:
+    get:
+      description: generate random string with given length, default length is 8
+      parameters:
+      - description: random string length
+        in: query
+        name: length
+        type: integer
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: generate random string
+      tags:
+      - random
+swagger: "2.0"

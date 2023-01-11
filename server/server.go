@@ -4,7 +4,10 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
+	"strings"
 
+	"github.com/feo0o/kyanite/app"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
 )
@@ -48,6 +51,20 @@ func init() {
 }
 
 func Run() (err error) {
+	var runMode string
+	m := os.Getenv(fmt.Sprintf("%s_RUN_MODE", strings.ToUpper(app.Name)))
+	switch strings.ToLower(m) {
+	case "prd", "prod", "release":
+		runMode = gin.ReleaseMode
+	case "debug", "dev":
+		runMode = gin.DebugMode
+	case "test", "uat":
+		runMode = gin.TestMode
+	default:
+		runMode = gin.ReleaseMode
+	}
+	gin.SetMode(runMode)
+
 	svr := gin.Default()
 	if cfg.EnableACCLog {
 		// todo: set svr to use logger with config
