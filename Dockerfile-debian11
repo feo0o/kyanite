@@ -13,11 +13,8 @@ RUN export GOPROXY=https://goproxy.io,direct && \
 # suit for learn/ops use
 FROM debian:11
 
-# modify sources list for test
-RUN sed -i 's#deb.debian.org#mirrors.tuna.tsinghua.edu.cn#g' /etc/apt/sources.list
-
 RUN apt update && \
-    apt install -y --no-install-recommends apt-file curl tcpdump bind9-dnsutils telnet file && \
+    apt-get install -y --no-install-recommends apt-file curl tcpdump bind9-dnsutils telnet file net-tools iproute2 inetutils-ping && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 COPY --from=builder /go/src/kyanite/kyanite /
