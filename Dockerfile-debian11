@@ -1,8 +1,7 @@
 FROM golang:1.19.5 AS builder
 WORKDIR /go/src/kyanite
 COPY . .
-RUN export GOPROXY=https://goproxy.io,direct && \
-    go install -v github.com/swaggo/swag/cmd/swag@latest && \
+RUN go install -v github.com/swaggo/swag/cmd/swag@latest && \
     go mod download && \
     go mod verify && \
     make && \
@@ -13,9 +12,7 @@ RUN export GOPROXY=https://goproxy.io,direct && \
 # suit for learn/ops use
 FROM debian:11
 
-RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
-    sed -i 's|security.debian.org/debian-security|mirrors.ustc.edu.cn/debian-security|g' /etc/apt/sources.list && \
-    apt update && \
+RUN apt update && \
     apt-get install -y --no-install-recommends apt-file curl tcpdump bind9-dnsutils telnet file net-tools iproute2 inetutils-ping  && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*

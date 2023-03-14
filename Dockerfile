@@ -1,9 +1,10 @@
-FROM docker.io/alpine:3.16.3
-RUN apk add --update --no-cache tzdata curl busybox busybox-extras bind-tools tcpdump strace ltrace tree iperf iperf3 && \
-    rm -rf /var/cache/apk/* && \
-    cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
-    echo "Asia/Shanghai" > /etc/timezone
-COPY release/kyanite_linux_amd64 /kyanite
+RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
+    sed -i 's|security.debian.org/debian-security|mirrors.ustc.edu.cn/debian-security|g' /etc/apt/sources.list && \
+    apt update && \
+    apt-get install -y --no-install-recommends apt-file curl tcpdump bind9-dnsutils telnet file net-tools iproute2 inetutils-ping  && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+COPY kyanite /kyanite
 ENTRYPOINT ["/kyanite"]
 
 

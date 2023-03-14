@@ -1,0 +1,2 @@
+- Add `ethtool` to Debian based image
+- Add `nc` to Debian based image

@@ -5,7 +5,7 @@ ARTIFACT_NAME=$(echo ${APP_NAME} | tr A-Z a-z)
 
 MAJOR_VERSION=0
 MINOR_VERSION=2
-BUILD_VERSION=2
+BUILD_VERSION=3
 
 # 镜像tag
 IMG_BASE_TAG=v${MAJOR_VERSION}.${MINOR_VERSION}.${BUILD_VERSION}
@@ -19,10 +19,10 @@ build_dev(){
 }
 
 build_stable() {
-    # build debian based image
+    # debian based image
     nerdctl build -t ${ARTIFACT_NAME}:${IMG_BASE_TAG}-debian11 -f Dockerfile-debian11 .
-    # build distroless based image
-    nerdctl build -t ${ARTIFACT_NAME}:${IMG_BASE_TAG} -f Dockerfile-distroless .
+    # static image
+    nerdctl build -t ${ARTIFACT_NAME}:${IMG_BASE_TAG} -f Dockerfile-static .
 }
 
 # main

@@ -1,14 +1,14 @@
 APP_NAME		=	Kyanite
 MAJOR_VERSION	=	0
 MINOR_VERSION	=	2
-BUILD_VERSION	=	2
+PATCH_VERSION	=	3
 GIT_COMMIT		=	$(shell git rev-parse --short HEAD)
 ARTIFACT_NAME	=	$(shell echo $(APP_NAME) | tr A-Z a-z)
 
 IMPORT_VARS		=	-X github.com/feo0o/kyanite/app.Name=$(APP_NAME) \
 					-X github.com/feo0o/kyanite/app.majorVer=$(MAJOR_VERSION) \
 					-X github.com/feo0o/kyanite/app.minorVer=$(MINOR_VERSION) \
-					-X github.com/feo0o/kyanite/app.patchVer=$(BUILD_VERSION) \
+					-X github.com/feo0o/kyanite/app.patchVer=$(PATCH_VERSION) \
 					-X github.com/feo0o/kyanite/app.gitCommit=$(GIT_COMMIT)
 
 # ENV_WINDOWS_X64	=	GOOS=windows GOARCH=amd64
