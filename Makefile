@@ -1,7 +1,7 @@
 APP_NAME		=	Kyanite
 MAJOR_VERSION	=	0
-MINOR_VERSION	=	2
-PATCH_VERSION	=	3
+MINOR_VERSION	=	3
+PATCH_VERSION	=	0
 GIT_COMMIT		=	$(shell git rev-parse --short HEAD)
 ARTIFACT_NAME	=	$(shell echo $(APP_NAME) | tr A-Z a-z)
 
