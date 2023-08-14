@@ -6,6 +6,7 @@ import (
 	"github.com/feo0o/kyanite/api"
 	"github.com/feo0o/kyanite/app"
 	docs "github.com/feo0o/kyanite/docs"
+	"github.com/feo0o/kyanite/middleware"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -17,7 +18,7 @@ func route(eng *gin.Engine) {
 	docs.SwaggerInfo.Version = app.Version()
 	docs.SwaggerInfo.BasePath = "/"
 
-	healthzAPI := eng.Group("/healthz")
+	healthzAPI := eng.Group("/healthz", middleware.DelayBySecond())
 	{
 		healthzAPI.HEAD("", api.HealthChechk)
 		healthzAPI.GET("", api.HealthChechk)
