@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/feo0o/kyanite/app"
+	"github.com/feo0o/kyanite/middleware"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
 )
@@ -70,6 +71,7 @@ func Run() (err error) {
 		// todo: set svr to use logger with config
 		svr.Use(gin.Logger())
 	}
+	svr.Use(middleware.PrometheusMetrics)
 	route(svr)
 
 	addr := fmt.Sprintf("%s:%d", cfg.BindAddr, cfg.BindPort)

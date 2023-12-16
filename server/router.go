@@ -8,23 +8,24 @@ import (
 	docs "github.com/feo0o/kyanite/docs"
 	"github.com/feo0o/kyanite/middleware"
 	"github.com/gin-gonic/gin"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-func route(eng *gin.Engine) {
+func route(e *gin.Engine) {
 	docs.SwaggerInfo.Title = fmt.Sprintf("%s API Docs", app.Name)
 	docs.SwaggerInfo.Description = "A simple HTTP(S) server with Ops tools."
 	docs.SwaggerInfo.Version = app.Version()
 	docs.SwaggerInfo.BasePath = "/"
 
-	healthzAPI := eng.Group("/healthz", middleware.DelayBySecond())
+	healthzAPI := e.Group("/healthz", middleware.DelayBySecond())
 	{
 		healthzAPI.HEAD("", api.HealthChechk)
 		healthzAPI.GET("", api.HealthChechk)
 	}
 
-	randomAPI := eng.Group("/random")
+	randomAPI := e.Group("/random")
 	{
 		randomAPI.HEAD("/string", api.GetRandomString)
 		randomAPI.GET("/string", api.GetRandomString)
@@ -36,6 +37,9 @@ func route(eng *gin.Engine) {
 		randomAPI.GET("/decimal", api.GetRandomdecimal)
 	}
 
+	// Metrics
+	e.GET("/metrics", gin.WrapH(promhttp.Handler()))
+
 	// Docs API
-	eng.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	e.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 }
