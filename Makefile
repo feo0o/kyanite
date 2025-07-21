@@ -14,6 +14,7 @@ IMPORT_VARS		=	-X github.com/feo0o/kyanite/app.Name=$(APP_NAME) \
 					-X github.com/feo0o/kyanite/app.gitCommit=$(GIT_COMMIT)
 
 ENV_LINUX_X64	=	GOOS=linux GOARCH=amd64
+ENV_WINDOWS_X64	=	GOOS=windows GOARCH=amd64
 
 BUILD_RELEASE	=	CGO_ENABLED=0 go build -trimpath \
 					-gcflags="all=-trimpath=$(PWD)" \
@@ -21,6 +22,7 @@ BUILD_RELEASE	=	CGO_ENABLED=0 go build -trimpath \
 					-ldflags '-extldflags "-static" $(IMPORT_VARS)'
 
 PKG_NAME_LINUX_AMD64	=	$(ARTIFACT_NAME)_$(VERSION)_linux_amd64
+PKG_NAME_WINDOWS_X64	=	$(ARTIFACT_NAME)_$(VERSION)_windows_x64.exe
 
 release:binary container clean
 
@@ -31,6 +33,7 @@ binary:main.go
 	go mod verify
 	swag init
 	$(ENV_LINUX_X64) $(BUILD_RELEASE) -o $(RELEASE_DIR)/$(PKG_NAME_LINUX_AMD64) main.go
+	$(ENV_WINDOWS_X64) $(BUILD_RELEASE) -o $(RELEASE_DIR)/$(PKG_NAME_WINDOWS_X64) main.go
 
 container:Dockerfile $(RELEASE_DIR)/$(PKG_NAME_LINUX_AMD64)
 	cp $(RELEASE_DIR)/$(PKG_NAME_LINUX_AMD64) $(RELEASE_DIR)/kyanite
